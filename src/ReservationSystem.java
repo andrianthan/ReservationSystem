@@ -6,48 +6,64 @@ import java.io.*;
  * Andrian Than
  * @version 1.0 10/02/2024
  */
-
 public class ReservationSystem {
-    public static void main (String[] args)
-    {
-        Scanner scan = new Scanner(System.in);
-        String reservationFileName = args[2];
-        String userFileName = args[3];
-        try{
-            File file1 = new File("/Users/andrianthan/IdeaProjects/ReservationSystem/src/" + reservationFileName + ".txt");
-            File file2 = new File("/Users/andrianthan/IdeaProjects/ReservationSystem/src/" + userFileName + ".txt");
-            if(!file1.exists() && !file2.exists())
-            {
-                AirlineReservation.createFile(reservationFileName);
-                AirlineReservation.createFile(userFileName);
-                System.out.println("Files created.");
+    public static void main(String[] args) {
+        if (args.length != 2) {
+            System.out.println("Usage: java ReservationSystem <ReservationFile> <UserFile>");
+            return;
+        }
+        String reservationFileName = args[0];
+        String userFileName = args[1];
 
-            }else{
-                AirlineReservation.loadFiles(reservationFileName);
+        AirlineReservation system = new AirlineReservation();
 
-                System.out.println("Files loaded.");
-            }
+        system.initializeSeating();
 
-            System.out.println("Choose user type: [P]ublic or [A]dmin");
-            while(true){
-                String userInput = scan.nextLine();
-                if(userInput.equals("P"))
-                {
+        File reservationFile = new File(reservationFileName);
+        File userFile = new File(userFileName);
 
-
-                }else if(userInput.equals("A"))
-                {
-
-                }else{
-                    System.out.println("Invalid Input. Please choose 'P' for Public User and 'A' for Admin User");
+        if (reservationFile.exists() && userFile.exists()) {
+            system.loadUsers(userFileName);
+            system.loadReservations(reservationFileName);
+            System.out.println("Existing Reservations and Users are loaded.");
+        } else {
+            try {
+                if (!reservationFile.exists()) {
+                    reservationFile.createNewFile();
                 }
+                if (!userFile.exists()) {
+                    userFile.createNewFile();
+                }
+                System.out.println(reservationFileName + " and " + userFileName + " are now created.");
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
             }
+        }
 
-        }catch(IOException e){
-            e.printStackTrace();
+        Scanner scan = new Scanner(System.in);
 
+        while (true) {
+            System.out.println("Choose user type: [P]ublic or [A]dmin ([D] to exit):");
+            String userInput = scan.nextLine().trim().toUpperCase();
 
-    }
+            if (userInput.equals("P")) {
+                system.handlePublicUser();
+                break;
+            } else if (userInput.equals("A")) {
+                system.handleAdmin();
+                break;
+
+            } else if (userInput.equals("X")) {
+
+                break;
+            } else {
+                System.out.println("Invalid input. Please choose 'P' for Public User, 'A' for Admin User, or 'E' to Exit.");
+            }
+        }
+        system.saveReservations(reservationFileName);
+        system.saveUsers(userFileName);
+        System.out.println("Data saved. Exiting the system.");
 
     }
 }

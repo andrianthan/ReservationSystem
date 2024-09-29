@@ -10,6 +10,7 @@ public class Seat {
     private char letter;
     private String classService;
     private boolean availability;
+    String price = "";
 
     public Seat(int number, char letter, String cs)
     {
@@ -17,17 +18,32 @@ public class Seat {
         this.letter = letter;
         this.classService = cs;
         this.availability = true;
+        if(cs.equals("First Class"))
+        {
+            price = "$1000";
+
+        }else if(cs.equals("Economy Plus"))
+        {
+            price = "$500";
+        }else if(cs.equals("Economy"))
+        {
+            price = "$250";
+        }
+    }
+    public String getPrice()
+    {
+        return price;
     }
 
     public boolean getAvailability()
     {
         return availability;
     }
-    public static void notAvailable(){
+    public void notAvailable(){
         this.availability = false;
     }
 
-    public static void setAvailable(){
+    public void setAvailable(){
         this.availability = true;
     }
     public String toString(){
@@ -39,7 +55,7 @@ public class Seat {
         return classService;
     }
 
-    public String getLetter(){
+    public char getLetter(){
         return letter;
     }
 

@@ -1,1 +1,2 @@
-andriant 12345 andrian than
+john123,password123,John Doe
+jane456,pass456,Jane Smith
