@@ -23,6 +23,13 @@ public class Seat {
     {
         return availability;
     }
+    public static void notAvailable(){
+        this.availability = false;
+    }
+
+    public static void setAvailable(){
+        this.availability = true;
+    }
     public String toString(){
         return ("" + number + "" + letter);
     }
@@ -39,6 +46,7 @@ public class Seat {
     public int getNumber(){
         return number;
     }
+
 
 
 }

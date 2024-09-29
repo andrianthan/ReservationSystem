@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -19,8 +18,8 @@ public class AirlineReservation {
 
 
     public static void initializeSeating(){
-        String class ="";
-        char seatLetter = '';
+        String serviceClass = "";
+        char seatLetter = ' ';
         for(int i = 1; i < 11; i++)
         {
             if(i ==1)
@@ -31,7 +30,7 @@ public class AirlineReservation {
                 seatLetter = 'B';
             }else if(i==3)
             {
-             seatLetter = 'C';
+                seatLetter = 'C';
             }else if(i ==4){
                 seatLetter = 'D';
             }else if(i ==5)
@@ -61,40 +60,40 @@ public class AirlineReservation {
                         //no seats
                     } else {
                         //initialize first class seats
-                        class ="First Class";
-                        Seat s = new Seat(j, seatLetter, class);
+                        serviceClass ="First Class";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
                     }
                 }else if(j == 16 && (seatLetter == 'D' || seatLetter == 'E' || seatLetter == 'F' || seatLetter == 'G'))
                 {
                     //economy plus seats
-                    class = "Economy Plus";
-                    Seat s = new Seat(j, seatLetter, class);
+                    serviceClass = "Economy Plus";
+                    Seat s = new Seat(j, seatLetter, serviceClass);
                     passengerSeats.add(s);
                 }else if(j>=17 && j <=26)
                 {
                     if(j >=24 && j <= 26 && (seatLetter == 'D' || seatLetter == 'E' || seatLetter == 'F' || seatLetter == 'G'))
                     {
-                        class = "Economy";
-                        Seat s = new Seat(j, seatLetter, class);
+                        serviceClass = "Economy";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
                     }else{
-                        class = "Economy Plus";
-                        Seat s = new Seat(j, seatLetter, class);
+                        serviceClass = "Economy Plus";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
                     }
 
                 }else if(j >= 27 && j <= 36)
                 {
-                    class = "Economy";
-                    Seat s = new Seat(j, seatLetter, class);
+                    serviceClass = "Economy";
+                    Seat s = new Seat(j, seatLetter, serviceClass);
                     passengerSeats.add(s);
                 }else if (j == 37)
                 {
                     if (seatLetter == 'A' || seatLetter == 'B' || seatLetter == 'K' || seatLetter == 'L')
                     {
-                        class = "Economy";
-                        Seat s = new Seat(j, seatLetter, class);
+                        serviceClass = "Economy";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
                     }else{
                         //no seats
@@ -104,8 +103,8 @@ public class AirlineReservation {
                 }else if(j == 39 ){
                     if(seatLetter == 'A' || seatLetter == 'B' || seatLetter == 'C' || seatLetter == 'J' || seatLetter == 'K' || seatLetter == 'L')
                     {
-                        class = "Economy Plus";
-                        Seat s = new Seat(j, seatLetter, class);
+                        serviceClass = "Economy Plus";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
                     }else {
                         //no seats
@@ -114,30 +113,30 @@ public class AirlineReservation {
                 {
                     if(j == 40 && (seatLetter == 'D' || seatLetter == 'E' || seatLetter == 'F' || seatLetter == 'G'))
                     {
-                        class = "Economy Plus";
-                        Seat s = new Seat(j, seatLetter, class);
+                        serviceClass = "Economy Plus";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
                     }else{
-                        class = "Economy";
-                        Seat s = new Seat(j, seatLetter, class);
+                        serviceClass = "Economy";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
                     }
                 }else if(j >= 48 && j <= 53)
                 {
                     if(j>= 48 && j <= 51 && (seatLetter == 'A' || seatLetter == 'B' || seatLetter == 'D' || seatLetter == 'E' || seatLetter == 'F' || seatLetter == 'G' || seatLetter == 'K' || seatLetter == 'L'))
                     {
-                        class = "Economy";
-                        Seat s = new Seat(j, seatLetter, class;
+                        serviceClass = "Economy";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
 
                     }else if(j == 52 && (seatLetter == 'A' || seatLetter == 'B' || seatLetter == 'D' || seatLetter == 'E' || seatLetter == 'F' || seatLetter == 'G'))
                     {
-                        class = "Economy";
-                        Seat s = new Seat(j, seatLetter, class);
+                        serviceClass = "Economy";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
-                    else if(j == 53 && (seatLetter == 'D' || seatLetter == 'E' || seatLetter 'F' || seatLetter 'G')){
-                        class = "Economy";
-                        Seat s = new Seat(j, seatLetter, class);
+                    }else if(j == 53 && (seatLetter == 'D' || seatLetter == 'E' || seatLetter == 'F' || seatLetter == 'G')){
+                        serviceClass = "Economy";
+                        Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
                     }else {
                         // no seats
@@ -146,9 +145,9 @@ public class AirlineReservation {
 
             }
 
-         }
         }
     }
+}
 
 
     public static void createFile(String fileName)
@@ -163,30 +162,29 @@ public class AirlineReservation {
     }
 
     public static void loadFiles(String fileName){
-        File file1 = new File('/Users/andrianthan/IdeaProjects/ReservationSystem/src/' + fileName + '.txt');
-       try{
-           Scanner scan = new Scanner(file1);
-           while(scan.hasNextLine())
-           {
-               String reservationInfo = scan.nextLine();
-               String split = reservationInfo.split(" ");
-               int seatNumber = Integer.parseInt(split[0]);
-               char seatLetter = split[1].charAt(0);
-               String name = split[4] + " " + split[5];
-               String serviceClass =
+        File file1 = new File("/Users/andrianthan/IdeaProjects/ReservationSystem/src/" + fileName + ".txt");
+        try{
+            Scanner scan = new Scanner(file1);
+            while(scan.hasNextLine())
+            {
+                String reservationInfo = scan.nextLine();
+                String[] split = reservationInfo.split(" ");
+                int seatNumber = Integer.parseInt(split[0]);
+                char seatLetter = split[1].charAt(0);
+                String name = split[4] + " " + split[5];
+                String serviceClass = ""; // Assign appropriate value based on your file structure
 
+            }
 
-           }
-
-       }catch(FileNotFoundException e)
-       {
-           e.printStackTrace();
-       }
+        }catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
 
     }
 
     public static void printUserMenu(){
-        System.out.println("Please select one of the User Menu Options:\nCheck [A]availability  Make [R]eservation  [C]ancel Reservation   [V]iew Reservations  [D]one");
+        System.out.println("Please select one of the User Menu Options:\nCheck [A]vailability  Make [R]eservation  [C]ancel Reservation   [V]iew Reservations  [D]one");
         selectUser();
     }
 
@@ -232,12 +230,11 @@ public class AirlineReservation {
         System.out.println("Seat Availability");
         System.out.println();
 
-        // First Class availability
         System.out.println("First Class (price: $1000/seat)");
         boolean firstLetter = true;
         for (int i = 1; i <= 4; i++) {
             System.out.print(i + ": ");
-            firstLetter = true;  // Reset for each row
+            firstLetter = true;
             for (Seat s : passengerSeats) {
                 if (s.getClassService().equals("First Class") && s.getNumber() == i && s.getAvailability()) {
                     if (firstLetter) {
@@ -248,12 +245,11 @@ public class AirlineReservation {
                     }
                 }
             }
-            System.out.println();  // Move to next row
+            System.out.println();
         }
 
         System.out.println();
 
-        // Economy Plus availability
         System.out.println("Economy Plus (price: $500/seat)");
         for (int i = 16; i <= 26; i++) {
             System.out.print(i + ": ");
@@ -288,7 +284,6 @@ public class AirlineReservation {
 
         System.out.println();
 
-        // Economy availability
         System.out.println("Economy (price: $250/seat)");
         for (int i = 24; i <= 37; i++) {
             System.out.print(i + ": ");
@@ -324,6 +319,80 @@ public class AirlineReservation {
 
 
     public static void makeReservation(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Please enter your name:");
+        String name = scan.nextLine();
+        System.out.println("Please enter seat number (e.g., 12A)");
+        int seatNumber = 0;
+        char seatLetter = ' ';
+        String serviceClass = "";
+        String seatPrice = "";
+        Seat reservedSeat = null;
+        while(true)
+        {
+            String seat = scan.nextLine();
+            seat = seat.toUpperCase().trim();
+            String seatNumberStr = seat.substring(0, seat.length() - 1);
+            seatLetter = seat.charAt(seat.length() - 1);
+            seatNumber = Integer.parseInt(seatNumberStr);
+
+            if (seatNumber < 1 || seatNumber > 53 ||
+                    (seatLetter != 'A' && seatLetter != 'B' && seatLetter != 'C' && seatLetter != 'D' &&
+                            seatLetter != 'E' && seatLetter != 'F' && seatLetter != 'G' && seatLetter != 'J' &&
+                            seatLetter != 'K' && seatLetter != 'L') ||
+                    ((seatNumber >= 1 && seatNumber <= 3) && (seatLetter == 'C' || seatLetter == 'J')) ||
+                    (seatNumber == 4 && (seatLetter == 'C' || seatLetter == 'J' || seatLetter == 'D' ||
+                            seatLetter == 'E' || seatLetter == 'F' || seatLetter == 'G')))
+            {
+                System.out.println("Invalid seat number. Please enter another seat number");
+            }else{
+                break;
+            }
+        }
+        for(Seat s: passengerSeats)
+        {
+            if(s.getNumber() == seatNumber && s.getLetter() == seatLetter && s.getAvailability())
+            {
+                s.notAvailable();
+                passengerSeats.remove(s);
+                reservedSeats.add(s);
+                serviceClass = s.getClassService();
+                reservedSeat = s;
+                break;
+            }
+        }
+
+        if(serviceClass.equals("First Class"))
+        {
+            seatPrice = "$1000";
+        }else if(serviceClass.equals("Economy Plus"))
+        {
+            seatPrice = "$500";
+        }else if(serviceClass.equals("Economy"))
+        {
+            seatPrice = "$250";
+        }
+        System.out.println("Please confirm selection:");
+        System.out.println("Seat: " + seatNumber + seatLetter);
+        System.out.println("Class Service: " + serviceClass);
+        System.out.println("Price: " + seatPrice);
+        System.out.println("Please type [Y] to confirm or [N] to deny selection");
+        String confirmation = scan.nextLine().toUpperCase();
+
+        if (confirmation.equals("Y")) {
+            if (reservation.containsKey(name)) {
+                reservation.get(name).add(new Seat(seatNumber, seatLetter, serviceClass));
+            } else {
+                reservation.put(name, new ArrayList<>(Arrays.asList(new Seat(seatNumber, seatLetter, serviceClass))));
+            }
+            System.out.println("Reservation complete.");
+        } else {
+            reservedSeat.setAvailable();
+            passengerSeats.add(reservedSeat);
+            reservedSeats.remove(reservedSeat);
+            System.out.println("Reservation cancelled. The seat has been returned to availability.");
+        }
+
 
     }
 
@@ -362,6 +431,7 @@ public class AirlineReservation {
     }
 
     public static void adminManifest(){
+        System.out.println("First\n");
 
     }
 
