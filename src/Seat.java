@@ -9,12 +9,19 @@ public class Seat {
     private int number;
     private char letter;
     private String classService;
+    private boolean availability;
 
     public Seat(int number, char letter, String cs)
     {
         this.number = number;
         this.letter = letter;
         this.classService = cs;
+        this.availability = true;
+    }
+
+    public boolean getAvailability()
+    {
+        return availability;
     }
     public String toString(){
         return ("" + number + "" + letter);
