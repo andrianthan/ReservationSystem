@@ -171,24 +171,30 @@ public class AirlineReservation {
     }
 
     public void handleAdmin() {
-        adminSignIn();
-        if (isAdminLoggedIn) {
-            boolean exitFlag = false;
-            while (!exitFlag) {
-                printAdminMenu();
-                //selectAdmin();  // This method now doesn't return anything
-                System.out.println("Would you like to E[X]it or continue? (Press X to exit)");
-                Scanner scan = new Scanner(System.in);
-                String choice = scan.nextLine().toUpperCase();
-                if (choice.equals("X")) {
-                    adminExit();  // Exit admin session
-                    exitFlag = true;
+        boolean exitFlag = false;
+        while(!exitFlag){
+            getAdminInfo();
+
+            if (isAdminLoggedIn) {
+                exitFlag = false;
+                while (!exitFlag) {
+                    printAdminMenu();
+                    //selectAdmin();  // This method now doesn't return anything
+                    System.out.println("Would you like to E[X]it or continue? (Press X to exit)");
+                    Scanner scan = new Scanner(System.in);
+                    String choice = scan.nextLine().toUpperCase();
+                    if (choice.equals("X")) {
+                        adminExit();  // Exit admin session
+                        exitFlag = true;
+                    }
                 }
             }
         }
+
+
     }
 
-    private void adminSignIn() {
+    private void getAdminInfo() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please enter your employee ID:");
         String employeeId = scan.nextLine();

@@ -44,7 +44,7 @@ public class ReservationSystem {
         Scanner scan = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Choose user type: [P]ublic or [A]dmin ([D] to exit):");
+            System.out.println("Choose user type: [P]ublic or [A]dmin or E[X]IT");
             String userInput = scan.nextLine().trim().toUpperCase();
 
             if (userInput.equals("P")) {

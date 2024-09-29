@@ -14,6 +14,7 @@ public class User {
     private String id;
     private String name;
     private String password;
+    private boolean isAdmin = false;
 
     public User(String id, String name, String password)
     {
