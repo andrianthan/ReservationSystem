@@ -228,10 +228,100 @@ public class AirlineReservation {
 
 
     }
-    public static void checkAvailability(String name){
-        System.out.println("Seat Availability\n\nFirst Class (price: $1000/seat)");
-        boolean
+    public static void checkAvailability() {
+        System.out.println("Seat Availability");
+        System.out.println();
+
+        // First Class availability
+        System.out.println("First Class (price: $1000/seat)");
+        boolean firstLetter = true;
+        for (int i = 1; i <= 4; i++) {
+            System.out.print(i + ": ");
+            firstLetter = true;  // Reset for each row
+            for (Seat s : passengerSeats) {
+                if (s.getClassService().equals("First Class") && s.getNumber() == i && s.getAvailability()) {
+                    if (firstLetter) {
+                        System.out.print(s.getLetter());
+                        firstLetter = false;
+                    } else {
+                        System.out.print(", " + s.getLetter());
+                    }
+                }
+            }
+            System.out.println();  // Move to next row
+        }
+
+        System.out.println();
+
+        // Economy Plus availability
+        System.out.println("Economy Plus (price: $500/seat)");
+        for (int i = 16; i <= 26; i++) {
+            System.out.print(i + ": ");
+            firstLetter = true;
+            for (Seat s : passengerSeats) {
+                if (s.getClassService().equals("Economy Plus") && s.getNumber() == i && s.getAvailability()) {
+                    if (firstLetter) {
+                        System.out.print(s.getLetter());
+                        firstLetter = false;
+                    } else {
+                        System.out.print(", " + s.getLetter());
+                    }
+                }
+            }
+            System.out.println();
+        }
+        for (int i = 39; i <= 40; i++) {
+            System.out.print(i + ": ");
+            firstLetter = true;
+            for (Seat s : passengerSeats) {
+                if (s.getClassService().equals("Economy Plus") && s.getNumber() == i && s.getAvailability()) {
+                    if (firstLetter) {
+                        System.out.print(s.getLetter());
+                        firstLetter = false;
+                    } else {
+                        System.out.print(", " + s.getLetter());
+                    }
+                }
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+
+        // Economy availability
+        System.out.println("Economy (price: $250/seat)");
+        for (int i = 24; i <= 37; i++) {
+            System.out.print(i + ": ");
+            firstLetter = true;
+            for (Seat s : passengerSeats) {
+                if (s.getClassService().equals("Economy") && s.getNumber() == i && s.getAvailability()) {
+                    if (firstLetter) {
+                        System.out.print(s.getLetter());
+                        firstLetter = false;
+                    } else {
+                        System.out.print(", " + s.getLetter());
+                    }
+                }
+            }
+            System.out.println();
+        }
+        for (int i = 40; i <= 53; i++) {
+            System.out.print(i + ": ");
+            firstLetter = true;
+            for (Seat s : passengerSeats) {
+                if (s.getClassService().equals("Economy") && s.getNumber() == i && s.getAvailability()) {
+                    if (firstLetter) {
+                        System.out.print(s.getLetter());
+                        firstLetter = false;
+                    } else {
+                        System.out.print(", " + s.getLetter());
+                    }
+                }
+            }
+            System.out.println();
+        }
     }
+
 
     public static void makeReservation(){
 
