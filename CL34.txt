@@ -1,3 +1,6 @@
-andriant,19,D,Economy Plus
-andriant,19,E,Economy Plus
-andriant,53,E,Economy
+test1,1,B,First Class
+test1,16,E,Economy Plus
+test1,25,E,Economy
+test1,1,A,First Class
+test1,16,D,Economy Plus
+test1,24,D,Economy
