@@ -1,4 +1,4 @@
-# Airline Reservation System - CS151 Fall 2024
+# Airline Reservation System
 
 ## Overview
 
