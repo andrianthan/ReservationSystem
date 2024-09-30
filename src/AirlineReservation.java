@@ -6,6 +6,12 @@ import java.util.*;
  * Andrian Than
  * @version 1.0 10/02/2024
  */
+
+
+/**
+ * Represents an Airline Reservation where users are able to check seat availability, make reservations
+ * cancel reservations, and view reservations.
+ */
 public class AirlineReservation {
     private HashMap<String, User> publicUsers = new HashMap<>();
     private Set<String> employeeIds = new HashSet<>(Arrays.asList("admin1", "admin2"));
@@ -15,6 +21,11 @@ public class AirlineReservation {
     private User currentUser = null;
     private boolean isAdminLoggedIn = false;
     private boolean exitFlag = false;
+
+
+    /**
+     * Initializes Seat Objects in passengerSeats
+     */
 
     public void initializeSeating() {
 
@@ -59,14 +70,12 @@ public class AirlineReservation {
                     } else if (seatLetter == 'C' || seatLetter == 'J') {
                         //no seats
                     } else {
-                        //initialize first class seats
                         serviceClass ="First Class";
                         Seat s = new Seat(j, seatLetter, serviceClass);
                         passengerSeats.add(s);
                     }
                 }else if(j == 16 && (seatLetter == 'D' || seatLetter == 'E' || seatLetter == 'F' || seatLetter == 'G'))
                 {
-                    //economy plus seats
                     serviceClass = "Economy Plus";
                     Seat s = new Seat(j, seatLetter, serviceClass);
                     passengerSeats.add(s);
@@ -148,28 +157,38 @@ public class AirlineReservation {
         }
     }
 
-    public void handlePublicUser() {
+    /**
+     * Handles the public user session.
+     * Allows a user to log in or create an account.
+     * Users can check availability, make reservations, cancel reservations, view their reservations.
+     */
+
+     public void handlePublicUser() {
         boolean exitFlag = false;
         while (!exitFlag) {
             getUserInfo();
             if (currentUser == null) {
-                return; // Exit if user wants to exit or there's no current user
+                return;
             }
 
             while (!exitFlag) {
                 printUserMenu();
-                //selectUser();  // This method now doesn't return anything
                 System.out.println("Would you like to E[X]it or continue? (Press X to exit)");
                 Scanner scan = new Scanner(System.in);
                 String choice = scan.nextLine().toUpperCase();
                 if (choice.equals("X")) {
-                    userExit();  // Exit the user session
+                    userExit();
                     exitFlag = true;
                 }
             }
         }
     }
 
+    /**
+     * Handles the admin user session.
+     * Allows an admin to log in.
+     * Admins are able to view the manifest list of reserved seats.
+     */
     public void handleAdmin() {
         boolean exitFlag = false;
         while(!exitFlag){
@@ -179,12 +198,11 @@ public class AirlineReservation {
                 exitFlag = false;
                 while (!exitFlag) {
                     printAdminMenu();
-                    //selectAdmin();  // This method now doesn't return anything
                     System.out.println("Would you like to E[X]it or continue? (Press X to exit)");
                     Scanner scan = new Scanner(System.in);
                     String choice = scan.nextLine().toUpperCase();
                     if (choice.equals("X")) {
-                        adminExit();  // Exit admin session
+                        adminExit();
                         exitFlag = true;
                     }
                 }
@@ -194,6 +212,11 @@ public class AirlineReservation {
 
     }
 
+    /**
+     * Retrieves admin information.
+     * A valid employee ID must be used to log in.
+     * If the employee ID is not valid, user is prompt to reenter employee ID.
+     */
     private void getAdminInfo() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please enter your employee ID:");
@@ -215,6 +238,13 @@ public class AirlineReservation {
         System.out.println("Administrator logged in successfully.");
     }
 
+    /**
+     * Loads user data from the specified file.
+     * Each line in the file represents a user with their ID, password, and name.
+     *
+     * @param userFileName is the name of the file that contains User data.
+     */
+
     public void loadUsers(String userFileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(userFileName))) {
             String line;
@@ -232,6 +262,12 @@ public class AirlineReservation {
         }
     }
 
+    /**
+     * Loads reservation data from the specified file.
+     * Each line in the file represents a reservation with user ID, seat number, seat letter, and class service.
+     *
+     * @param reservationFileName is the name of the file that contains Reservation data
+     */
     public void loadReservations(String reservationFileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(reservationFileName))) {
             String line;
@@ -258,6 +294,14 @@ public class AirlineReservation {
         }
     }
 
+    /**
+     * Finds a seat based on the seat number and seat letter.
+     *
+     * @param seatNumber seat number
+     * @param seatLetter seat letter
+     * @return the Seat object if found, otherwise null
+     */
+
     public Seat findSeat(int seatNumber, char seatLetter) {
         for (Seat s : passengerSeats) {
             if (s.getNumber() == seatNumber && s.getLetter() == seatLetter) {
@@ -267,6 +311,11 @@ public class AirlineReservation {
         return null;
     }
 
+    /**
+     * Saves user data to the specified file.
+     *
+     * @param userFileName is the name of the file to save User data.
+     */
     public void saveUsers(String userFileName) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(userFileName))) {
             for (User user : publicUsers.values()) {
@@ -277,6 +326,12 @@ public class AirlineReservation {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Saves Reservation data to the specified file.
+     *
+     * @param reservationFileName is the name of the file to save Reservation data.
+     */
 
     public void saveReservations(String reservationFileName) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(reservationFileName))) {
@@ -292,48 +347,62 @@ public class AirlineReservation {
         }
     }
 
+    /**
+     * Displays the user menu and gives users options to select.
+     * Users can check seat availability, make a reservation, cancel a reservation, and view their reservations.
+     */
     public void printUserMenu() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please select one of the User Menu Options:");
         System.out.println("Check [A]vailability  Make [R]eservation  [C]ancel Reservation   [V]iew Reservations  [D]one");
 
-        String input = scan.next().toUpperCase();  // Get user input
-        selectUser(input);  // Pass input to selectUser method
+        String input = scan.next().toUpperCase();
+        selectUser(input);
     }
 
+    /**
+     * Handles the user's selection from the user menu.
+     * Based on the user's input, the system can check availability of seats, make reservations,
+     * cancel reservations, view reservations, or exit.
+     *
+     * @param input the user's selection from the menu
+     */
 
     public void selectUser(String input) {
-        while (!exitFlag) {  // Keep running until exitFlag is true
+        while (!exitFlag) {
             if (input.equals("A")) {
                 checkAvailability();
-                if (exitFlag) return;  // If exitFlag is true, exit
+                if (exitFlag)
+                {
+                    return;
+                }
                 System.out.println("\nPlease select another option or [D]one:");
-                printUserMenu();  // Call this method to display the menu again
-                continue;
+                printUserMenu();
+
 
             } else if (input.equals("R")) {
                 makeReservation();
-                if (exitFlag) return;  // If exitFlag is true, exit
+                if (exitFlag) return;
                 System.out.println("\nPlease select another option or [D]one:");
                 printUserMenu();
-                continue;
+
 
             } else if (input.equals("C")) {
                 cancelReservation();
-                if (exitFlag) return;  // If exitFlag is true, exit
+                if (exitFlag) return;
                 System.out.println("\nPlease select another option or [D]one:");
                 printUserMenu();
-                continue;
+
 
             } else if (input.equals("V")) {
                 viewReservation();
-                if (exitFlag) return;  // If exitFlag is true, exit
+                if (exitFlag) return;
                 System.out.println("\nPlease select another option or [D]one:");
                 printUserMenu();
-                continue;
+
 
             } else if (input.equals("D")) {
-                exitFlag = true;  // Set exitFlag to true to stop further recursion
+                exitFlag = true;
                 System.out.println("Exiting user menu...");
                 return;
 
@@ -344,6 +413,11 @@ public class AirlineReservation {
     }
 
 
+    /**
+     * Displays seat availability for different seat classes: First Class, Economy Plus, and Economy.
+     * It prints available seats by row and seat letter.
+     */
+
     public void checkAvailability() {
         System.out.println("Seat Availability");
         System.out.println();
@@ -352,7 +426,7 @@ public class AirlineReservation {
         boolean firstLetter = true;
         for (int i = 1; i <= 4; i++) {
             System.out.print(i + ": ");
-            firstLetter = true;  // Reset for each row
+            firstLetter = true;
             for (Seat s : passengerSeats) {
                 if (s.getClassService().equals("First Class") && s.getNumber() == i && s.getAvailability()) {
                     if (firstLetter) {
@@ -363,7 +437,7 @@ public class AirlineReservation {
                     }
                 }
             }
-            System.out.println();  // Move to next row
+            System.out.println();
         }
 
         System.out.println();
@@ -435,6 +509,11 @@ public class AirlineReservation {
         }
     }
 
+    /**
+     * Allows users to input a seat number in order to make a reservation.
+     * User must input a valid seat number in order to make a reservation.
+     * Once seat number is selected and confirmed, the seat is then added to user's reservation.
+     */
     public void makeReservation() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please enter seat number");
@@ -500,7 +579,10 @@ public class AirlineReservation {
             System.out.println("Reservation cancelled. The seat has been returned to availability.");
         }
     }
-
+    /**
+     * Allows users to cancel existing reservations.
+     * Once a reservation is canceled, it is removed from the user's reservation.
+     */
     public void cancelReservation() {
         Scanner scan = new Scanner(System.in);
         User user = currentUser;
@@ -541,6 +623,9 @@ public class AirlineReservation {
         System.out.println("Reservation cancelled for seat: " + seatToCancel.getNumber() + seatToCancel.getLetter());
     }
 
+    /**
+     * Displays a list of user's reservations and total balance due for all seats.
+     */
     public void viewReservation() {
         User user = currentUser;
 
@@ -567,16 +652,29 @@ public class AirlineReservation {
     }
 
 
+    /**
+     * Exits the menu and logs user out.
+     * Sets currentUser to null which indicates end of session.
+     */
     public void userExit() {
         System.out.println("Exiting user menu. Thank you for using the Airline Reservation System.");
-        currentUser = null; // Reset currentUser
+        currentUser = null;
     }
 
+    /**
+     * Prints admin menu.
+     * Admins can either view the manifest list or exit.
+     */
     public void printAdminMenu() {
         System.out.println("Please select one of the Admin Menu Options:");
         System.out.println("Show [M]anifest list  E[X]it");
         selectAdmin();
     }
+
+    /**
+     * Handles an Admin's selection of options
+     * Admins can either view the manifest list or exit.
+     */
 
     public void selectAdmin() {
         Scanner scan = new Scanner(System.in);
@@ -586,7 +684,6 @@ public class AirlineReservation {
             if (input.equals("M")) {
                 adminManifest();
                 System.out.println("\nPlease select another option or E[X]it:");
-                continue;
 
             } else if (input.equals("X")) {
                 adminExit();
@@ -597,10 +694,15 @@ public class AirlineReservation {
         }
     }
 
+    /**
+     * Displays the reservation manifest for all passengers.
+     * The reservations are grouped by class.
+     * Each reservation is displayed with the seat number, letter, and passenger's name.
+     */
+
     public void adminManifest() {
         System.out.println("Reservation Manifest:");
 
-        // Organize reservations by class
         Map<String, List<String>> manifest = new LinkedHashMap<>();
         manifest.put("First Class", new ArrayList<>());
         manifest.put("Economy Plus", new ArrayList<>());
@@ -628,11 +730,21 @@ public class AirlineReservation {
         }
     }
 
+    /**
+     * Exits the admin menu.
+     * isAdminLoggdIn set to false to indicate the end of Admin session.
+     */
     public void adminExit() {
         System.out.println("Exiting admin menu.");
         isAdminLoggedIn = false;
     }
 
+    /**
+     * Handles both returning users and first time users.
+     * First time users are prompted to enter their account id, name, and password.
+     * Returning users are prompt to enter their account id and password to log in.
+     * Clicking 'E' will end the session.
+     */
     public void getUserInfo() {
         Scanner scan = new Scanner(System.in);
         String id;

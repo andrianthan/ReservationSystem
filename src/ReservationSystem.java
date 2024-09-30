@@ -6,12 +6,12 @@ import java.io.*;
  * Andrian Than
  * @version 1.0 10/02/2024
  */
+
+/**
+ * A reservation system allows public users to reserve seats and allows admin users to view manifest list.
+ */
 public class ReservationSystem {
     public static void main(String[] args) {
-        if (args.length != 2) {
-            System.out.println("Usage: java ReservationSystem <ReservationFile> <UserFile>");
-            return;
-        }
         String reservationFileName = args[0];
         String userFileName = args[1];
 
