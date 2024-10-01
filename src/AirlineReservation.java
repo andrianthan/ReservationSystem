@@ -12,6 +12,8 @@ import java.util.*;
  * Represents an Airline Reservation where users are able to check seat availability, make reservations
  * cancel reservations, and view reservations.
  */
+
+
 public class AirlineReservation {
     private HashMap<String, User> publicUsers = new HashMap<>();
     private Set<String> employeeIds = new HashSet<>(Arrays.asList("admin1", "admin2"));
@@ -570,8 +572,8 @@ public class AirlineReservation {
         System.out.println("Please type [Y] to confirm or [N] to deny selection");
         String confirmation = scan.nextLine().toUpperCase();
 
-        if (confirmation.equals("Y")) {
-            reservation.computeIfAbsent(currentUser, k -> new ArrayList<>()).add(selectedSeat);
+        if ("Y".equals(confirmation)) {
+            reservation.putIfAbsent(currentUser, new ArrayList<>()).add(selectedSeat);
             System.out.println("Reservation complete.");
         } else {
             selectedSeat.setAvailable();
@@ -741,9 +743,8 @@ public class AirlineReservation {
 
     /**
      * Handles both returning users and first time users.
-     * First time users are prompted to enter their account id, name, and password.
-     * Returning users are prompt to enter their account id and password to log in.
-     * Clicking 'E' will end the session.
+     * First time users enter their account id, name, and password.
+     * Returning users enter their account id and password to log in.
      */
     public void getUserInfo() {
         Scanner scan = new Scanner(System.in);
@@ -775,7 +776,7 @@ public class AirlineReservation {
                 User user = new User(id, name, password);
                 publicUsers.put(id, user);
                 currentUser = user;
-                System.out.println("Airline Reservation account successfully created.");
+                System.out.println("Account successfully created.");
                 break;
 
             } else if (userInput.equals("R")) {

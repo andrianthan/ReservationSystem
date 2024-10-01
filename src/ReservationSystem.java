@@ -8,23 +8,25 @@ import java.io.*;
  */
 
 /**
- * A reservation system allows public users to reserve seats and allows admin users to view manifest list.
+ * Facilitates activity of public users and admin users.
+ * Allows public users to reserve seats
+ * Allows admin users to view manifest list.
  */
 public class ReservationSystem {
     public static void main(String[] args) {
         String reservationFileName = args[0];
         String userFileName = args[1];
 
-        AirlineReservation system = new AirlineReservation();
+        AirlineReservation airline = new AirlineReservation();
 
-        system.initializeSeating();
+        airline.initializeSeating();
 
         File reservationFile = new File(reservationFileName);
         File userFile = new File(userFileName);
 
         if (reservationFile.exists() && userFile.exists()) {
-            system.loadUsers(userFileName);
-            system.loadReservations(reservationFileName);
+            airline.loadUsers(userFileName);
+            airline.loadReservations(reservationFileName);
             System.out.println("Existing Reservations and Users are loaded.");
         } else {
             try {
@@ -48,10 +50,10 @@ public class ReservationSystem {
             String userInput = scan.nextLine().trim().toUpperCase();
 
             if (userInput.equals("P")) {
-                system.handlePublicUser();
+                airline.handlePublicUser();
                 break;
             } else if (userInput.equals("A")) {
-                system.handleAdmin();
+                airline.handleAdmin();
                 break;
 
             } else if (userInput.equals("X")) {
@@ -61,8 +63,8 @@ public class ReservationSystem {
                 System.out.println("Invalid input. Please choose 'P' for Public User, 'A' for Admin User, or 'E' to Exit.");
             }
         }
-        system.saveReservations(reservationFileName);
-        system.saveUsers(userFileName);
+        airline.saveReservations(reservationFileName);
+        airline.saveUsers(userFileName);
         System.out.println("Data saved. Exiting the system.");
 
     }
